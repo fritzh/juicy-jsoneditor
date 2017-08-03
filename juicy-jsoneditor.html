@@ -37,7 +37,8 @@ version: 1.1.1
                     name: { type: String, observer: "nameChanged" },
                     search: { type: Boolean, observer: "searchChanged", value: true },
                     indentation: { type: String },
-                    history: { type: Boolean, value: false }
+                    history: { type: Boolean, value: false },
+                    schema: { type: Object }
                 },
                 editor: null,
                 observer: null,
@@ -58,6 +59,7 @@ version: 1.1.1
                             modes: this.modes,
                             search: this.search,
                             indentation: this.indentation,
+                            schema: this.schema,
 
                             onChange: function editorChanged() {
                                 if (!that.editor) {
