@@ -32,13 +32,13 @@ version: 1.1.1
                 is: 'juicy-jsoneditor',
                 properties: {
                     json: { type: Object, value: function() { return {}; }, observer: "jsonChanged" },
+                    schema: { type: Object, observer: "schemaChanged" },
                     mode: { type: String, observer: "modeChanged" },
                     modes: { type: Array, value: [] },
                     name: { type: String, observer: "nameChanged" },
                     search: { type: Boolean, observer: "searchChanged", value: true },
                     indentation: { type: String },
-                    history: { type: Boolean, value: false },
-                    schema: { type: Object }
+                    history: { type: Boolean, value: false }
                 },
                 editor: null,
                 observer: null,
@@ -126,12 +126,16 @@ version: 1.1.1
 
                     return this.refresh();
                 },
+                schemaChanged: function(newSchema, oldSchema) {
+                    return this.refresh();
+                },
                 refresh: function refresh() {
                     if (!this.editor) {
                         return;
                     }
 
                     var state = this.getExpandState();
+                    var s = this.editor.setSchema(this.schema);
                     var r = this.editor.set(this.json);
 
                     this.setExpandState(state);
